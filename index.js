@@ -93,6 +93,7 @@ app.post('/form', middle, emailValid, (req, res) => {
     })
 })
 
+<<<<<<< HEAD
 app.post('/login',(req,res)=>{
     dbForum.find({email: req.body.email}, (err,data)=>{
         if(err){
@@ -125,6 +126,35 @@ app.post('/login',(req,res)=>{
 })
 
 
+=======
+app.post('/login', (req , res) => {
+    dbForum.findOne( {email : req.body.email } , (err , data) =>{
+        if(data){
+            if(data.password == req.body.password){
+                res.json({
+                    success : true,
+                    msg : 'Login Successfull'
+                })
+            }else{
+                res.json({
+                    success : false,
+                    msg : 'Invalid Password'
+                })
+            }
+        }else if(err){
+            res.json({
+                success : true,
+                msg : err
+            })
+        }else{
+            res.json({
+                success : false,
+                msg : 'invalid credentails'
+            })
+        }
+    })
+})
+>>>>>>> 58e2c291fe2871c614a15f59ae3c10ce6a930be9
 
 // Server
 app.listen(4000, () => console.log('Server is running on port 4000'));
