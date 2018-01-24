@@ -94,7 +94,6 @@ app.post('/form', middle, emailValid, (req, res) => {
     })
 })
 
-<<<<<<< HEAD
 app.post('/login', (req, res) => {
     dbForum.findOne({ email: req.body.email }, (err, data) => {
         if (data) {
@@ -106,46 +105,6 @@ app.post('/login', (req, res) => {
 
                 }
                 let token = jwt.sign(obj, 'D3V3L0PEMN3T');
-=======
-<<<<<<< HEAD
-app.post('/login',(req,res)=>{
-    dbForum.find({email: req.body.email}, (err,data)=>{
-        if(err){
-            res.json({
-                success: false,
-                msg: 'Database error'
-            })
-        } else if (data === null){
-            res.json({
-                msg: 'Email not registered'
-            })
-        }
-        else {
-            console.log(data)
-            console.log(req.body.password)
-            if(req.body.password == data[0].password){
-                res.json({
-                    sucess: true,
-                    msg: 'Login sucessful'
-                })
-            }
-            else {
-                res.json({
-                    sucess: false,
-                    msg: 'Password not correct'
-                })
-            }
-        }
-    })
-})
-
-
-=======
-app.post('/login', (req , res) => {
-    dbForum.findOne( {email : req.body.email } , (err , data) =>{
-        if(data){
-            if(data.password == req.body.password){
->>>>>>> 56b491bc2e0d06cce7ab77092e36b9bb1d641c9d
                 res.json({
                     success: true,
                     msg: 'Login Successfull',
@@ -170,7 +129,6 @@ app.post('/login', (req , res) => {
         }
     })
 })
->>>>>>> 58e2c291fe2871c614a15f59ae3c10ce6a930be9
 
 app.get('/dashboard', (req, res) => {
     console.log('fduggkug')
