@@ -18,6 +18,7 @@
   "homepage": "https://github.com/grvv/Signup-API#readme",
   "dependencies": {
     "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.1",
     "mongoose": "^5.0.1",
     "validator": "^9.2.0"
   }

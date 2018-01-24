@@ -2,13 +2,14 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken')
 
 const bodyParser = require('body-parser');
 
 const validator = require('validator');
 const dbForum = require('./models/forms');
 
-// Using bodyParser
+// Adding bodyParser's middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -93,32 +94,58 @@ app.post('/form', middle, emailValid, (req, res) => {
     })
 })
 
-app.post('/login', (req , res) => {
-    dbForum.findOne( {email : req.body.email } , (err , data) =>{
-        if(data){
-            if(data.password == req.body.password){
+app.post('/login', (req, res) => {
+    dbForum.findOne({ email: req.body.email }, (err, data) => {
+        if (data) {
+            if (data.password == req.body.password) {
+                let obj = {
+                    email: data.email,
+                    age: data.age,
+                    name: data.firstName
+
+                }
+                let token = jwt.sign(obj, 'D3V3L0PEMN3T');
                 res.json({
-                    success : true,
-                    msg : 'Login Successfull'
+                    success: true,
+                    msg: 'Login Successfull',
+                    token: token
                 })
-            }else{
+            } else {
                 res.json({
-                    success : false,
-                    msg : 'Invalid Password'
+                    success: false,
+                    msg: 'Invalid Password'
                 })
             }
-        }else if(err){
+        } else if (err) {
             res.json({
-                success : true,
-                msg : err
+                success: true,
+                msg: err
             })
-        }else{
+        } else {
             res.json({
-                success : false,
-                msg : 'invalid credentails'
+                success: false,
+                msg: 'invalid credentails'
             })
         }
     })
+})
+
+app.get('/dashboard', (req, res) => {
+    console.log('fduggkug')
+    jwt.verify(req.headers.xx, 'D3V3L0PEMN3T', (err, decoded) => {
+        if (err) {
+            res.json({
+                success: false,
+                mdg : 'invalid token'
+            })
+        } else {
+            res.json({
+                success: true,
+                decodedValue: decoded
+            })
+        }
+    });
+
 })
 
 // Server
