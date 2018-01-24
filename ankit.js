@@ -2,14 +2,13 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken')
 
 const bodyParser = require('body-parser');
 
 const validator = require('validator');
 const dbForum = require('./models/forms');
 
-// Adding bodyParser's middleware
+// Using bodyParser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -94,20 +93,6 @@ app.post('/form', middle, emailValid, (req, res) => {
     })
 })
 
-<<<<<<< HEAD
-app.post('/login', (req, res) => {
-    dbForum.findOne({ email: req.body.email }, (err, data) => {
-        if (data) {
-            if (data.password == req.body.password) {
-                let obj = {
-                    email: data.email,
-                    age: data.age,
-                    name: data.firstName
-
-                }
-                let token = jwt.sign(obj, 'D3V3L0PEMN3T');
-=======
-<<<<<<< HEAD
 app.post('/login',(req,res)=>{
     dbForum.find({email: req.body.email}, (err,data)=>{
         if(err){
@@ -140,55 +125,6 @@ app.post('/login',(req,res)=>{
 })
 
 
-=======
-app.post('/login', (req , res) => {
-    dbForum.findOne( {email : req.body.email } , (err , data) =>{
-        if(data){
-            if(data.password == req.body.password){
->>>>>>> 56b491bc2e0d06cce7ab77092e36b9bb1d641c9d
-                res.json({
-                    success: true,
-                    msg: 'Login Successfull',
-                    token: token
-                })
-            } else {
-                res.json({
-                    success: false,
-                    msg: 'Invalid Password'
-                })
-            }
-        } else if (err) {
-            res.json({
-                success: true,
-                msg: err
-            })
-        } else {
-            res.json({
-                success: false,
-                msg: 'invalid credentails'
-            })
-        }
-    })
-})
->>>>>>> 58e2c291fe2871c614a15f59ae3c10ce6a930be9
-
-app.get('/dashboard', (req, res) => {
-    console.log('fduggkug')
-    jwt.verify(req.headers.xx, 'D3V3L0PEMN3T', (err, decoded) => {
-        if (err) {
-            res.json({
-                success: false,
-                mdg : 'invalid token'
-            })
-        } else {
-            res.json({
-                success: true,
-                decodedValue: decoded
-            })
-        }
-    });
-
-})
 
 // Server
 app.listen(4000, () => console.log('Server is running on port 4000'));
